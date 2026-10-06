@@ -1,0 +1,25 @@
+Conoti AI — Binary License / 바이너리 이용 조건 (요약)
+
+Copyright (c) 2026 ELD. All rights reserved.
+
+이 저장소(YeoJeongHun1/conoti-ai)는 Conoti AI 의 설치 파일·릴리스 노트·업데이트 피드만 배포합니다. 소스 코드는 없습니다.
+
+1. Conoti AI 0.12.0 이상의 설치 파일은 ELD 가 저작권을 가지며, 무료로 설치·실행(개인·업무 용도)할 수 있습니다. 역공학, 수정판 배포,
+   ELD 의 서면 동의 없는 재배포·판매는 허용되지 않습니다(공식 릴리스 링크 공유와 조직 내부의 변경 없는 배포는 허용). 전체 조건은 TERMS.md 를 따르며, 이 파일은 그 요약입니다. 둘이 다르면 TERMS.md 가 우선합니다.
+   Conoti AI 0.12.0 and later binaries are copyrighted by ELD and may be installed and run free of charge for personal and business use.
+   Reverse engineering, modified builds, and redistribution or sale without ELD's written permission are not permitted (sharing a link to the official release and unmodified distribution within your own organization are allowed). See TERMS.md for the full terms.
+
+2. 앱은 "있는 그대로" 제공되며 보증이 없습니다. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
+   책임 제한은 TERMS.md 4조를 따릅니다.
+
+3. 오픈소스 구성요소: 앱에는 오픈소스 구성요소가 들어 있고 각자의 라이선스를 따릅니다. 이름·버전·라이선스·저작권 고지와 본문은
+   릴리스마다 첨부된 THIRD-PARTY-NOTICES.md 에 있습니다. 이 조건의 제한은 그 라이선스가 주는 권리를 줄이지 않습니다.
+   Third-party open-source components are governed by their own licenses; see THIRD-PARTY-NOTICES.md attached to each release.
+
+4. 0.10.1 까지의 MIT 공개분: 이전 이름 AI Inbox 의 0.10.1 까지의 판과 소스(저장소 YeoJeongHun1/ai-inbox)는 MIT 라이선스로 공개되었으며
+   그대로 MIT 입니다. 이용 조건은 0.12.0 부터이며, 이 파일은 그것을 바꾸거나 철회하지 않습니다.
+   Versions through 0.10.1 (formerly AI Inbox, repository YeoJeongHun1/ai-inbox) were published under the MIT License and remain so.
+
+5. 문의: 이 저장소의 Issues. 취약점은 Security → Report a vulnerability (비공개 신고) — SECURITY.md.
+
+Claude·Claude Code 는 Anthropic 의, OpenAI·Codex 는 OpenAI 의 상표이며 이 앱은 두 회사와 관계가 없습니다.

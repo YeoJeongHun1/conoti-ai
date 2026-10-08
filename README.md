@@ -17,7 +17,7 @@
 | OS | 파일 |
 |---|---|
 | macOS (Apple Silicon · Intel) | `Conoti-AI_<버전>_universal.dmg` |
-| Windows 10/11 (x64) | `Conoti-AI_<버전>_x64-setup.exe`(권장) 또는 `.msi` |
+| Windows 10/11 (x64) | `Conoti-AI_<버전>_x64-setup.exe` (0.12.x 까지는 `.msi` 도 있었습니다) |
 
 이 앱은 **Apple·Microsoft 개발자 서명이 없습니다**(macOS 는 ad-hoc 서명, 공증 없음). 그래서 처음 열 때 운영체제가 한 번 막습니다. 아래 순서대로 허용하세요.
 
@@ -53,7 +53,7 @@ AI Inbox 0.10.1 이하에서 올라오는 경우의 변경점(이름·폴더 등
   base64 --decode < <파일>.sig > <파일>.minisig      # Windows: certutil -decode <파일>.sig <파일>.minisig
   minisign -Vm <파일> -x <파일>.minisig -P <릴리스 본문의 공개키>
   ```
-- DMG·MSI 에는 업데이터 서명이 없습니다 — `SHA256SUMS.txt` 로 확인하세요.
+- DMG(와 0.12.x 의 MSI)에는 업데이터 서명이 없습니다 — `SHA256SUMS.txt` 로 확인하세요.
 
 ## 개인정보와 데이터 위치
 
@@ -65,7 +65,7 @@ AI Inbox 0.10.1 이하에서 올라오는 경우의 변경점(이름·폴더 등
 | 읽기만 함 | `~/.claude/projects`·`~/.claude/sessions`(Claude Code), `~/.codex/sessions`(Codex) — 원본은 고치거나 지우지 않습니다 |
 | 저장 | 앱 데이터 폴더의 `inbox.db`(요청·요약·상태) · 폰 연결 키 `relay-identity.json` · 보낸 이미지 `attachments/` |
 | 데이터 폴더 | macOS `~/Library/Application Support/com.yeojeonghun.ai-inbox/` · Windows `%LOCALAPPDATA%\com.yeojeonghun.ai-inbox\` |
-| 고침(사용자가 눌렀을 때만) | `~/.claude/settings.json` 의 훅 — 추가만 하고, 제거 땐 이 앱의 항목만 뺍니다 |
+| 고침(사용자가 눌렀을 때만) | `~/.claude/settings.json` 의 훅 — 추가만 하고, 제거 땐 이 앱의 항목만 뺍니다 · 세션 스킬 `~/.claude/skills/conoti-sessions`·`~/.codex/skills/conoti-sessions`·`~/.codex/rules/conoti-ai.rules` (설정의 [제거]와 Windows 제거가 함께 지웁니다) |
 
 도구 **출력**(파일 내용·명령 결과)은 저장하지 않고 한 줄 요약만 남깁니다. 흔한 형식의 비밀값은 저장 전에 `[가림]` 으로 바꾸지만 **완벽하지 않습니다** — 내보낸 문서를 공유하기 전에 한 번 읽어 보세요.
 
@@ -86,7 +86,7 @@ AI Inbox 0.10.1 이하에서 올라오는 경우의 변경점(이름·폴더 등
 - **코노티 계정으로 들어오는 기기 연결은 준비 중입니다.** 이번 판에서는 QR 로 연결한 기기만 동작하며, 계정 연결이 지원되는 판은 릴리스 노트로 알립니다.
 - 코드 서명·공증이 없어 첫 실행에 운영체제 경고가 뜹니다(위 안내).
 - 요약·분류·"반드시 답해야 할 것" 표시는 규칙 기반이라 틀리거나 놓칠 수 있습니다. 중요한 확인은 원래 세션에서 하세요.
-- Windows 에서 Claude Code 훅(Git Bash)·로그인 자동 실행 등 일부 동작은 실기 검증이 제한적입니다. Windows 11 에서 새 설치와 0.10.1 에서 올라오는 이행(설치 폴더·바로가기·프로그램 목록·자동 시작·Claude Code 훅 경로)을 실제로 확인했습니다. 0.12.1 부터 0.10.1 에서 자동 시작을 꺼 둔 선택이 이어지고, Windows 에서 앱을 직접 제거하면 이 앱이 만든 Claude Code 훅 줄(`settings.json`)도 함께 지워집니다(업데이트·재설치에서는 그대로). 알려진 한계: Windows 11 외 환경과 한글 사용자 폴더는 실기 확인이 제한적입니다.
+- Windows 에서 Claude Code 훅(Git Bash)·로그인 자동 실행 등 일부 동작은 실기 검증이 제한적입니다. Windows 11 에서 새 설치와 0.10.1 에서 올라오는 이행(0.12.x)과 0.13.0 설치(설치 폴더·바로가기·프로그램 목록·자동 시작·Claude Code 훅 경로)을 실제로 확인했습니다. 0.12.1 부터 0.10.1 에서 자동 시작을 꺼 둔 선택이 이어지고, Windows 에서 앱을 직접 제거하면 이 앱이 만든 Claude Code 훅 줄(`settings.json`)도 함께 지워집니다(업데이트·재설치에서는 그대로). 알려진 한계: Windows 11 외 환경과 한글 사용자 폴더는 실기 확인이 제한적입니다.
 - Codex 는 Windows 에서 열림 여부를 알 수 없어 항상 대기열에 넣고, npm 래퍼 `codex.cmd` 는 지원하지 않습니다(`codex.exe` 필요).
 - 자세한 보안 한계는 [SECURITY.md](SECURITY.md).
 
@@ -106,7 +106,7 @@ AI Inbox 0.10.1 이하에서 올라오는 경우의 변경점(이름·폴더 등
 
 **Conoti AI** (formerly AI Inbox) is a desktop app (macOS · Windows) that turns your Claude Code and OpenAI Codex sessions into a messenger-style inbox: sessions are chats, each request is a pair of bubbles, and unseen results stay marked. This repository distributes **installers, release notes and the update feed only** (no source code).
 
-- **Install:** download `Conoti-AI_<version>_universal.dmg` (macOS) or `Conoti-AI_<version>_x64-setup.exe` / `.msi` (Windows) from [Releases](https://github.com/YeoJeongHun1/conoti-ai/releases). The app is neither notarized nor Authenticode-signed. macOS: move it to Applications and open it; if blocked, System Settings → Privacy & Security → **Open Anyway**. Windows SmartScreen: **More info → Run anyway**.
+- **Install:** download `Conoti-AI_<version>_universal.dmg` (macOS) or `Conoti-AI_<version>_x64-setup.exe` (Windows; `.msi` was offered up to 0.12.x) from [Releases](https://github.com/YeoJeongHun1/conoti-ai/releases). The app is neither notarized nor Authenticode-signed. macOS: move it to Applications and open it; if blocked, System Settings → Privacy & Security → **Open Anyway**. Windows SmartScreen: **More info → Run anyway**.
 - **Verify:** compare downloads with `SHA256SUMS.txt`; update bundles carry minisign signatures (`.sig`) that the app checks with a built-in public key (commands in the release notes). No GitHub build attestation is published (private source repository).
 - **Privacy:** no telemetry; transcripts are read locally and a summary is stored only in a local SQLite file. The optional phone link is end-to-end encrypted (Noise) and the relay stores nothing. Updates are installed only when you click, after signature verification.
 - **Known limitation:** connecting through a Conoti account is not available yet; only QR-paired devices work in this release.

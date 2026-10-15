@@ -59,13 +59,16 @@ AI Inbox 0.10.1 이하에서 올라오는 경우의 변경점(이름·폴더 등
 
 **원격 측정이 없고, 대화 내용을 밖으로 보내지 않습니다.** 네트워크를 쓰는 것은 둘뿐입니다: 새 버전 확인(위)과, 사용자가 켠 **폰 연결**(`conoti.app` 과 TLS).
 선택 기능(대화 이력 찾기·응답 요약·태그 제안)은 기본 꺼짐이고, 켜고 동의해야만 사용자 컴퓨터에 로그인된 Claude Code/Codex CLI 로 선택된 발췌가 해당 서비스에 전송됩니다(구독 사용량 소모).
+이미지 위임(Claude Code 세션이 부탁한 이미지를 Codex 로)과 작업 위임(Claude ↔ Codex, 기본 꺼짐)도 같은 길입니다 — 요청마다 이 PC 의 허용 창이나 기기 관리 권한 폰에서 허용해야(또는 사용자가 켠 "항상 허용" 범위 안에서) 사용자 컴퓨터의 Codex/Claude Code CLI 가 그 서비스로 보냅니다.
+구독 사용량 표시는 이 PC 의 파일만 읽습니다(사용량을 묻는 네트워크 요청 없음 · 폰에는 숫자만).
 
 | 무엇 | 어디 |
 |---|---|
 | 읽기만 함 | `~/.claude/projects`·`~/.claude/sessions`(Claude Code), `~/.codex/sessions`(Codex) — 원본은 고치거나 지우지 않습니다 |
 | 저장 | 앱 데이터 폴더의 `inbox.db`(요청·요약·상태) · 폰 연결 키 `relay-identity.json` · 보낸 이미지 `attachments/` |
 | 데이터 폴더 | macOS `~/Library/Application Support/com.yeojeonghun.ai-inbox/` · Windows `%LOCALAPPDATA%\com.yeojeonghun.ai-inbox\` |
-| 고침(사용자가 눌렀을 때만) | `~/.claude/settings.json` 의 훅 — 추가만 하고, 제거 땐 이 앱의 항목만 뺍니다 · 세션 스킬 `~/.claude/skills/conoti-sessions`·`~/.codex/skills/conoti-sessions`·`~/.codex/rules/conoti-ai.rules` (설정의 [제거]와 Windows 제거가 함께 지웁니다) |
+| 고침(사용자가 눌렀을 때) | `~/.claude/settings.json` 의 훅 — 추가만 하고, 제거 땐 이 앱의 항목만 뺍니다 · 세션 스킬 `~/.claude/skills/conoti-sessions`·`~/.codex/skills/conoti-sessions`·`~/.codex/rules/conoti-ai.rules` (설정의 [제거]와 Windows 제거가 함께 지웁니다) · 설정 › 스킬의 [적용하기] `~/.claude/skills/<이름>`·`~/.codex/skills/<이름>` · 작업 위임을 켤 때 Codex MCP 등록(`~/.codex/config.toml` — 바꾸기 직전 사본을 데이터 폴더 `config-backups/` 에) · 설정 › IDE 확장의 [확장 설치](그 IDE 의 명령줄 도구로 설치) |
+| 고침(훅을 설치해 둔 경우 자동) | 앱이 켜질 때 빠졌거나 옛 꼴인 허용 확인 훅 한 줄을 다시 맞춥니다(설정에서 끔) · 이미지 위임이 든 판으로 처음 올라올 때 한 번 MCP 등록(`claude mcp add` 사용자 범위 `conoti-ai`)과 스킬 `~/.claude/skills/conoti-delegate-image` |
 
 도구 **출력**(파일 내용·명령 결과)은 저장하지 않고 한 줄 요약만 남깁니다. 흔한 형식의 비밀값은 저장 전에 `[가림]` 으로 바꾸지만 **완벽하지 않습니다** — 내보낸 문서를 공유하기 전에 한 번 읽어 보세요.
 
@@ -80,6 +83,7 @@ AI Inbox 0.10.1 이하에서 올라오는 경우의 변경점(이름·폴더 등
 폰과 PC 는 **종단간 암호화**(Noise)로 통신하고, 코노티 서버는 암호문을 넘길 뿐 읽거나 저장하지 않습니다. 서버가 보는 것은 접속 IP·시각·메시지 크기와 횟수·푸시 횟수뿐입니다.
 폰 알림에는 내용이 없습니다. PC 가 꺼져 있으면 폰은 "PC 꺼져 있음"을 보여 줍니다(원본은 PC 의 `inbox.db` 뿐입니다).
 폰 답은 곧 원격 명령이므로 기기별 허용·세션별 차단·전체 멈춤 등 여러 겹으로 막습니다. 폰 연결은 운영 서버(`conoti.app`)에만 연결합니다.
+PC 에서 **기기 관리 권한**을 준 폰은 0.14.0 부터 기본으로 Claude Code 의 허용 확인·질문에 답하고("항상 허용" 규칙 포함 — 폰별 범위 기본 "모두"), 세션의 권한 모드·모델·effort 를 바꾸고, 대화 압축·비우기를 시작하고, 이미지·작업 위임을 허용할 수 있습니다. 모두 PC 설정에서 끄거나 좁힐 수 있고, 그 폰을 잃으면 그만큼 원격으로 할 수 있으므로 폰 잠금과 PC 화면의 기기 해제가 경계입니다.
 
 ## 알려진 한계
 
@@ -88,6 +92,7 @@ AI Inbox 0.10.1 이하에서 올라오는 경우의 변경점(이름·폴더 등
 - 요약·분류·"반드시 답해야 할 것" 표시는 규칙 기반이라 틀리거나 놓칠 수 있습니다. 중요한 확인은 원래 세션에서 하세요.
 - Windows 에서 Claude Code 훅(Git Bash)·로그인 자동 실행 등 일부 동작은 실기 검증이 제한적입니다. Windows 11 에서 새 설치와 0.10.1 에서 올라오는 이행(0.12.x)과 0.13.0 설치(설치 폴더·바로가기·프로그램 목록·자동 시작·Claude Code 훅 경로)을 실제로 확인했습니다. 0.12.1 부터 0.10.1 에서 자동 시작을 꺼 둔 선택이 이어지고, Windows 에서 앱을 직접 제거하면 이 앱이 만든 Claude Code 훅 줄(`settings.json`)도 함께 지워집니다(업데이트·재설치에서는 그대로). 알려진 한계: Windows 11 외 환경과 한글 사용자 폴더는 실기 확인이 제한적입니다.
 - Codex 는 Windows 에서 열림 여부를 알 수 없어 항상 대기열에 넣고, npm 래퍼 `codex.cmd` 는 지원하지 않습니다(`codex.exe` 필요).
+- 세션 설정(모드·모델·effort)을 실행 중인 세션에 바로 넣는 것은 tmux 안의 Claude Code 와, IDE 확장을 넣은 VS Code 계열 통합 터미널(macOS·Linux)만입니다. 그 밖의 터미널·Windows 는 다음 이어 실행 때 붙습니다.
 - 자세한 보안 한계는 [SECURITY.md](SECURITY.md).
 
 ## 문의·지원·취약점 신고
